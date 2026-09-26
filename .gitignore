@@ -1,0 +1,15 @@
+# 临时与产物
+tmp/
+out/
+
+# 依赖与缓存
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+
+# 日志与系统文件
+*.log
+.DS_Store
+Thumbs.db
+desktop.ini
