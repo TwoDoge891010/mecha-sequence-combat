@@ -1,0 +1,194 @@
+# -*- coding: utf-8 -*-
+# 赋能插件表 v0.9b：主表扩至 18 条词缀（原有 6 + 新增 12），Tag 体系扩为 6 组
+import openpyxl
+from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+from openpyxl.utils import get_column_letter
+
+P = r'D:\TraeWorkSpace\Projects\mecha-sequence-combat\src\plugin-tables\enhance-plugin-tables-v0.9.xlsx'
+
+# ---- 样式常量（对齐行为插件表）----
+F_TITLE = Font(name='Arial', size=14, bold=True, color='1F2937')
+F_HDR   = Font(name='Arial', size=11, bold=True, color='FFFFFF')
+F_LABEL = Font(name='Arial', size=10, bold=True, color='1F2937')
+F_DATA  = Font(name='Arial', size=10)
+FILL_HDR  = PatternFill('solid', fgColor='1F2937')
+FILL_TITLE = PatternFill('solid', fgColor='F1F5F9')
+FILL_WHITE = PatternFill('solid', fgColor='FFFFFF')
+FILL_ZEBRA = PatternFill('solid', fgColor='F7F9FC')
+THIN = Side(style='thin', color='D9DEE7')
+BORDER = Border(left=THIN, right=THIN, top=THIN, bottom=THIN)
+AL_C = Alignment(horizontal='center', vertical='center', wrap_text=True)
+AL_L = Alignment(horizontal='left', vertical='center', wrap_text=True)
+
+
+def put_title(ws, text):
+    ws.cell(1, 1, text)
+    ws.cell(1, 1).font = F_TITLE
+    ws.cell(1, 1).alignment = AL_L
+
+
+def put_header(ws, row, headers):
+    for j, h in enumerate(headers, 1):
+        c = ws.cell(row, j, h)
+        c.font = F_HDR
+        c.fill = FILL_HDR
+        c.border = BORDER
+        c.alignment = AL_C
+
+
+def put_body(ws, row0, rows):
+    for i, r in enumerate(rows):
+        rn = row0 + i
+        fill = FILL_WHITE if i % 2 == 0 else FILL_ZEBRA
+        for j, v in enumerate(r, 1):
+            c = ws.cell(rn, j, v)
+            c.font = F_DATA
+            c.border = BORDER
+            c.alignment = AL_L
+            c.fill = fill
+
+
+def put_label(ws, r, text):
+    c = ws.cell(r, 1, text)
+    c.font = F_LABEL
+    c.alignment = AL_L
+
+
+def set_widths(ws, widths):
+    for i, w in enumerate(widths, 1):
+        ws.column_dimensions[get_column_letter(i)].width = w
+
+
+wb = openpyxl.Workbook()
+
+# ============ 1) 说明 ============
+ws = wb.active
+ws.title = '说明'
+set_widths(ws, [16, 110])
+put_title(ws, '赋能插件设计表（v0.9 · 可编辑版 · 词缀模型）')
+put_label(ws, 3, '用途')
+ws.cell(3, 2, '本工作簿专用于赋能插件（行为插件的「词缀」）设计，供设计 / 开发逐项对照。行为插件数据在 behavior-plugin-tables-v0.8.xlsx；中继插件另开工作簿。').font = F_DATA
+ws.cell(3, 2).alignment = AL_L
+put_label(ws, 4, '结构')
+ws.cell(4, 2, '赋能插件 = 行为插件的词缀，不分稀有度、不占槽位、不入树结构：从构装库拖到行为卡上（或点行为卡「◆赋能」选择），作用于所附着的那张行为卡本身（直接子节点）。主表（A）每词缀一行；命名规范页定义命名；Tag体系页定义检索分类；受附要求体系页定义可附着对象与适用性权衡。').font = F_DATA
+ws.cell(4, 2).alignment = AL_L
+put_label(ws, 6, '与行为插件差异')
+rows = [
+    ('稀有度', '赋能插件不分稀有度（无 I/II/III 九变体），只有一种形态', '行为插件 = 插件系列 × 3 稀有度 × 3 槽 = 9 变体'),
+    ('槽位 / 树结构', '不占攻击/重装/超限三槽，不入树结构、不参与树形拼装', '行为/中继构成「行为→中继→行为」纯链，行为卡本身占槽入树'),
+    ('作用范围', '只作用于所附着的那张行为卡本身（直接子节点）', '行为插件本身即技能，作用于命中的敌人'),
+    ('衔接职责', '不承担衔接——攻击之间仍须由中继插件衔接', '中继插件承担攻击之间的触发衔接'),
+    ('上限', '每张行为卡最多附着 2 个赋能（原型 MAX_AFFIXES=2），载荷叠加到所属卡', '载荷计入技能树整装载荷'),
+]
+r = 7
+put_header(ws, r, ['比较面', '赋能插件', '行为插件'])
+for i, (a, b, c) in enumerate(rows):
+    rn = r + 1 + i
+    fill = FILL_WHITE if i % 2 == 0 else FILL_ZEBRA
+    for j, v in enumerate([a, b, c], 1):
+        cc = ws.cell(rn, j, v)
+        cc.font = F_DATA; cc.border = BORDER; cc.alignment = AL_L; cc.fill = fill
+
+put_label(ws, 14, 'v0.9b 修订')
+ws.cell(14, 2, '新增 12 条词缀：传导（弹道跃迁 / 电磁链锁）、结算（临界引爆）、附着（状态催化）、时机（蓄势派生）、热量（热量节流）、状态条（状态凝滞 / 状态传染）、召唤（机群扩编 / 超频狂暴）、暴击（精准校准 / 致命打击）；主表扩至 18 条，Tag 体系扩为 6 组。暴击规则定稿：基础暴击率 0%、暴击倍率 ×3.0；「标记」为技能附着的辅助型状态，仅被引爆时兑现暴击加成（方案 A）。').font = F_DATA
+ws.cell(14, 2).alignment = AL_L
+ws.column_dimensions['C'].width = 60
+ws.row_dimensions[1].height = 22
+
+# ============ 2) 命名规范 ============
+ws = wb.create_sheet('命名规范')
+set_widths(ws, [14, 60, 42])
+put_title(ws, '赋能词缀命名规范（v0.9）')
+r = 3
+put_header(ws, r, ['项', '规则', '示例'])
+rows = [
+    ('序号', '赋能词缀序号（1、2、3...，主表 / Tag体系共用同一序号）', '1'),
+    ('通用名', '赋能词缀中文名：短词缀，4 字为主（仅「环绕」2 字），结构＝[方式/领域]＋[动作]，直接描述强化方向', '范围扩大 / 双重释放 / 环绕 / 强行追踪 / 弹道贯穿 / 从天而降 / 弹道跃迁 / 电磁链锁 / 临界引爆 / 状态催化 / 蓄势派生 / 热量节流 / 状态凝滞 / 状态传染 / 机群扩编 / 超频狂暴 / 精准校准 / 致命打击'),
+    ('引擎系列码', '词缀引擎前缀：EN_<系列>；系列 = 强化方向英文词', 'EN_RANGE / EN_DOUBLE / EN_ORBIT / EN_HOMING / EN_AP / EN_ASTRA / EN_RICO / EN_LINK / EN_DETON / EN_CATALYST / EN_CHARGE / EN_THROTTLE / EN_STASIS / EN_CONTAGION / EN_LEGION / EN_FRENZY / EN_PRECISION / EN_LETHAL'),
+    ('引擎 ID', 'EN_<系列码>（赋能不分稀有度 / 槽位，故无 SLASH/BURST/DRAGON 与稀有度后缀；与行为插件 BT_<系列>_<槽>_<稀有度> 不同级）', 'EN_RANGE / EN_HOMING_II(不存在)'),
+]
+put_body(ws, r + 1, rows)
+ws.column_dimensions['C'].width = 60
+
+# ============ 3) A-赋能主表 ============
+ws = wb.create_sheet('A-赋能主表')
+set_widths(ws, [8, 14, 16, 14, 48, 12, 26, 44, 10, 10])
+put_title(ws, 'A. 赋能词缀主表（每词缀一行 · 词缀模型 · 18 条）')
+r = 3
+put_header(ws, r, ['序号', '通用名', '引擎系列码', '强化方向(Tag)', '效果', '加强/质变', '受附要求', '适用性权衡', '载荷', '来源'])
+rows = [
+    # ---- 原有 6 条（v0.9）----
+    (1, '范围扩大', 'EN_RANGE',   '范围',   '范围 +30%', '加强', '通用',                                    '与「环绕」不同方向（影响面积 vs 轨道）',        15, '新增'),
+    (2, '双重释放', 'EN_DOUBLE',  '多重',   '释放 ×2',   '加强', '通用',                                    '受每卡赋能上限（≤2）与载荷约束',                20, '新增'),
+    (3, '环绕', 'EN_ORBIT', '环绕', '环绕本体运作', '质变', '通用（近战/远程皆可）',                    '与「强行追踪」（长距索敌）互斥',                  20, '新增'),
+    (4, '强行追踪', 'EN_HOMING',  '追踪',   '弹道类技能拐弯命中，与攻击面无关', '质变', '仅限远程/弹道类行为卡', '近战不可赋予；与「环绕」互斥；索敌规则改写',  20, '新增'),
+    (5, '弹道贯穿', 'EN_AP',      '弹道',   '弹道贯穿敌人', '加强', '仅限弹道类行为卡',                        '穿透后可能损失单点最高伤害',                    15, '新增'),
+    (6, '从天而降', 'EN_ASTRA',   '触达',   '改为从天而降落地', '质变', '通用',                                 '改变命中时机（延迟），需择机使用',                18, '新增'),
+    # ---- 新增 12 条（v0.9b）----
+    (7, '弹道跃迁', 'EN_RICO',    '弹射',   '命中后伤害向最近未命中目标跳转（跳数 2–3、每跳衰减 −20%）', '加强', '仅限「点命中」类行为卡', '单点最高伤被摊薄（群怪强、单体弱）；与「从天而降」同卡互斥', 18, '新增'),
+    (8, '电磁链锁', 'EN_LINK',    '链接',   '多弹道之间建立电磁链，链上目标持续受传导伤害（链长 2–4、持续 1.5–2s）', '质变', '仅限「多弹道/多发」类行为卡（弹道数 ≥2）', '需多弹道载体（单弹单发无收益）；与「弹道跃迁」可叠加（建网＋放网）', 22, '新增'),
+    (9, '临界引爆', 'EN_DETON',   '引爆',   '命中已附着侵蚀的敌人时，把侵蚀累计值提前结算为爆发并清零（倍率 ×1.8–2.5、结算后冷却 1s）', '质变', '仅限侵蚀类行为卡', '放弃「满条自动施加」的持续收益换爆发；结算后条清零＋冷却，防连环炸', 25, '新增'),
+    (10, '状态催化', 'EN_CATALYST', '附着', '命中时按比例加速填充目标状态累计条（+30%–50% 累计速度），不直接施加状态', '加强', '需该卡有对应状态累计渠道', '只加速不制造（守「状态由他树制造」铁律）；对无状态卡无效', 15, '新增'),
+    (11, '蓄势派生', 'EN_CHARGE', '时机',   '技能可蓄力，越久越强（伤害/范围/累计）；或命中后派生一次追加攻击（派生＝本体 ×40%–60%）', '质变', '通用', '与「从天而降」同属时机维度，建议互斥；蓄力改变节奏', 20, '新增'),
+    (12, '热量节流', 'EN_THROTTLE', '热量', '本卡积热 −X%', '加强', '通用', '纯降积热，不与「机甲核心」的热量规则冲突', 12, '新增'),
+    (13, '状态凝滞', 'EN_STASIS', '凝滞',   '本卡命中时，减缓目标状态条衰减速度（延长状态窗口）', '加强', '通用', '与「状态催化」互补（一个加速累计、一个减缓衰减）', 15, '新增'),
+    (14, '状态传染', 'EN_CONTAGION', '传染', '本卡命中时，把目标部分累计值传染给邻近敌人', '质变', '通用', '需邻近有敌人（对单体无收益）', 18, '新增'),
+    (15, '机群扩编', 'EN_LEGION', '扩编',   '召唤物数量上限＋、在场时长＋', '加强', '仅限召唤类行为卡', '与「超频狂暴」互斥（求稳 vs 求爆）', 20, '新增'),
+    (16, '超频狂暴', 'EN_FRENZY', '狂暴',   '召唤物在场时长 −50%、持续扣血（自伤），换攻速 ×2', '质变', '仅限召唤类行为卡', '风险收益型；与「机群扩编」互斥', 20, '新增'),
+    (17, '精准校准', 'EN_PRECISION', '精准', '本卡暴击率 +X%', '加强', '通用', '基础暴击率 0%（不投入即无暴击）；受暴击率软上限（75%）约束', 18, '新增'),
+    (18, '致命打击', 'EN_LETHAL', '致命',   '本卡暴击倍率 +X%（基础 ×3.0）', '加强', '通用', '与「精准校准」互补（起势 vs 放大）；无暴击率时收益为零', 18, '新增'),
+]
+put_body(ws, r + 1, rows)
+
+# ============ 4) Tag体系 ============
+ws = wb.create_sheet('Tag体系')
+set_widths(ws, [16, 44, 56])
+put_title(ws, 'Tag 体系（赋能词缀检索 / 强化方向分类 · 可随设计扩展）')
+r = 3
+put_header(ws, r, ['Tag 组', 'Tag', '用于'])
+rows = [
+    ('命中形态', '范围 / 弹道 / 追踪 / 多重 / 环绕 / 触达', '描述「怎么打中」——v0.9 原有 6 词缀'),
+    ('传导', '弹射 / 链接', '命中后伤害在目标 / 弹道之间扩散（弹射放网、链接建网）'),
+    ('结算', '引爆', '把已累计的状态提前兑现为爆发'),
+    ('状态互动', '附着 / 凝滞 / 传染', '与状态累计条互动（加速累计 / 减缓衰减 / 扩散给邻近）'),
+    ('节奏资源', '时机 / 热量', '改变攻击节奏与热量收支'),
+    ('专项强化', '扩编 / 狂暴 / 精准 / 致命', '强化召唤物（数量 / 时长 / 狂暴）与暴击输出'),
+]
+put_body(ws, r + 1, rows)
+
+# ============ 5) 受附要求体系 ============
+ws = wb.create_sheet('受附要求体系')
+set_widths(ws, [14, 34, 54, 16])
+put_title(ws, '受附要求体系（对应行为插件「稀有度体系」：词的附着约束与权衡）')
+r = 3
+put_header(ws, r, ['强化方向(Tag)', '受附要求', '适用性权衡', '加强/质变'])
+rows = [
+    ('范围',   '通用',                         '与「环绕」不同方向（影响面积 vs 轨道）',                                '加强'),
+    ('多重',   '通用',                         '受每卡赋能上限（≤2）与载荷约束',                                        '加强'),
+    ('弹道',   '仅限弹道类行为卡',              '穿透后可能损失单点最高伤害',                                              '加强'),
+    ('追踪',   '仅限远程/弹道类行为卡；近战不可赋予', '与「环绕」互斥（长距索敌）；索敌规则改写',                             '质变'),
+    ('环绕',   '通用（近战/远程皆可）',           '与「强行追踪」互斥',                                                     '质变'),
+    ('触达',   '通用',                         '改变命中时机（延迟），需择机使用',                                         '质变'),
+    ('弹射',   '仅限「点命中」类行为卡',           '单点最高伤被摊薄；与「从天而降」同卡互斥',                                  '加强'),
+    ('链接',   '仅限「多弹道/多发」类行为卡（弹道数 ≥2）', '需多弹道载体；与「弹射」可叠加（建网＋放网）',                        '质变'),
+    ('引爆',   '仅限侵蚀类行为卡',              '放弃满条持续收益换爆发；结算后清零＋冷却防连环炸',                            '质变'),
+    ('附着',   '需该卡有对应状态累计渠道',         '只加速不制造（守跨树铁律）；对无状态卡无效',                                '加强'),
+    ('时机',   '通用',                         '与「从天而降」同属时机维度，建议互斥',                                      '质变'),
+    ('热量',   '通用',                         '纯降积热，不与「机甲核心」热量规则冲突',                                     '加强'),
+    ('凝滞',   '通用',                         '与「附着」互补（加速累计 vs 减缓衰减）',                                     '加强'),
+    ('传染',   '通用',                         '需邻近有敌人；对单体无收益',                                               '质变'),
+    ('扩编',   '仅限召唤类行为卡',              '与「狂暴」互斥（求稳 vs 求爆）',                                           '加强'),
+    ('狂暴',   '仅限召唤类行为卡',              '风险收益型（自伤换攻速）；与「扩编」互斥',                                    '质变'),
+    ('精准',   '通用',                         '基础暴击率 0%；受软上限约束',                                             '加强'),
+    ('致命',   '通用',                         '与「精准」互补；无暴击率时收益为零',                                        '加强'),
+]
+put_body(ws, r + 1, rows)
+
+# 说明页数据行统一边框
+for row in wb['说明'].iter_rows():
+    for c in row:
+        if c.value is not None and c.border.left.style is None:
+            c.border = BORDER
+
+wb.save(P)
+print('rebuilt OK:', wb.sheetnames)
