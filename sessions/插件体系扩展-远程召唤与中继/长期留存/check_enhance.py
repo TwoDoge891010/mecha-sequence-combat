@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
+from pathlib import Path
+
 import openpyxl
-SRC = r'D:\TraeWorkSpace\Projects\mecha-sequence-combat\src\plugin-tables\enhance-plugin-tables-v0.9.xlsx'
-LO  = r'D:\TraeWorkSpace\Projects\mecha-sequence-combat\tmp\lo-check\enhance-plugin-tables-v0.9.xlsx'
+
+# 项目根：本脚本位于 <项目根>\sessions\<主题>\长期留存\，故上溯 3 层
+ROOT = Path(__file__).resolve().parents[3]
+SRC = ROOT / 'src' / 'plugin-tables' / 'enhance-plugin-tables-v0.9.xlsx'
+LO  = ROOT / 'tmp' / 'lo-check' / 'enhance-plugin-tables-v0.9.xlsx'
 ERRS = ('#REF!', '#NAME?', '#VALUE!', '#DIV/0!', '#N/A', '#NULL!', '#NUM!')
 
 def scan(p, tag):
@@ -16,7 +21,10 @@ def scan(p, tag):
     print(f'[{tag}] formula-errors={len(bad)} {bad}')
 
 scan(SRC, 'SRC')
-scan(LO, 'LO ')
+if LO.exists():
+    scan(LO, 'LO ')
+else:
+    print('[LO ] 对照副本不存在，跳过（tmp/ 为临时目录，不入库）')
 
 # 主表条数与序号连续性
 wb = openpyxl.load_workbook(SRC)

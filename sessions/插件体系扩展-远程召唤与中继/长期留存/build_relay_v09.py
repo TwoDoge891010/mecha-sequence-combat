@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
+from pathlib import Path
+
 import openpyxl
 from openpyxl.styles import Font, PatternFill, Border, Side, Alignment
 
-OUT = r"D:\TraeWorkSpace\Projects\mecha-sequence-combat\src\plugin-tables\relay-plugin-tables-v0.9.xlsx"
+# 项目根：本脚本位于 <项目根>\sessions\<主题>\长期留存\，故上溯 3 层
+ROOT = Path(__file__).resolve().parents[3]
+OUT = ROOT / "src" / "plugin-tables" / "relay-plugin-tables-v0.9.xlsx"
 
 HDR_FILL = PatternFill("solid", fgColor="334E68")
 TITLE_FONT = Font(name="微软雅黑", size=13, bold=True, color="1F2937")

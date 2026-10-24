@@ -12,13 +12,16 @@
 
 ## 运行方式
 
+在项目根目录下执行：
+
 ```powershell
-python "D:\TraeWorkSpace\Projects\mecha-sequence-combat\sessions\插件体系扩展-远程召唤与中继\长期留存\check_enhance.py"
+python sessions\插件体系扩展-远程召唤与中继\长期留存\check_enhance.py
 ```
 
-依赖：`openpyxl`。脚本内路径均为本机绝对路径（`D:\TraeWorkSpace\Projects\mecha-sequence-combat\...`），换机需改脚本顶部的路径常量。
+依赖：`openpyxl`。脚本内路径以**脚本自身位置**解析（上溯 3 层到项目根），不含绝对路径，任意机器克隆后可直接运行。
 
 ## 注意
 
 - `build_*.py` 为**全量重建**脚本：运行会整体覆盖对应 xlsx。执行前请确认表内手工改动已回写进脚本数据区，否则会被冲掉。
 - 脚本是「表结构的可复现来源」，不是规范真值；规范真值以 `docs\PROJECT-STATUS.md` 登记的当前表为准。
+- `check_enhance.py` 中的 `LO` 对照副本指向 `tmp\lo-check\`（临时目录，不入库）：该文件不存在时自动跳过该项扫描，不影响其余校验。

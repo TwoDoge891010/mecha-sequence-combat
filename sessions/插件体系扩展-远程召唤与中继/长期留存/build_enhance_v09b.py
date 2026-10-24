@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 # 赋能插件表 v0.9b：主表扩至 18 条词缀（原有 6 + 新增 12），Tag 体系扩为 6 组
+from pathlib import Path
+
 import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
-P = r'D:\TraeWorkSpace\Projects\mecha-sequence-combat\src\plugin-tables\enhance-plugin-tables-v0.9.xlsx'
+# 项目根：本脚本位于 <项目根>\sessions\<主题>\长期留存\，故上溯 3 层
+ROOT = Path(__file__).resolve().parents[3]
+P = ROOT / 'src' / 'plugin-tables' / 'enhance-plugin-tables-v0.9.xlsx'
 
 # ---- 样式常量（对齐行为插件表）----
 F_TITLE = Font(name='Arial', size=14, bold=True, color='1F2937')
