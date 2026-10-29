@@ -34,7 +34,7 @@ git log --oneline -3
 | --- | --- |
 | 远程地址 | `https://github.com/TwoDoge891010/mecha-sequence-combat.git` |
 | 分支 | `main`（唯一长期分支，无 develop / feature 分支） |
-| 交接时 HEAD | `753f0dd` — 交接：补交接说明、15 插件池复核与战斗细化章节 |
+| 交接时 HEAD | `035872f`（本文定稿提交；之后若有新提交，以 `git log -1` 为准） |
 | 最近提交链 | `753f0dd`（交接文档 + 15 插件池复核）→ `1add784`（近战池补全 6→15 插件）→ `b15d5c2`（修复留存脚本硬编码路径）→ `b6fbdb9`（赋能 23 条）→ `1e3f17f`（中继 8 插件）→ `55decd0`（术语「卡」→「插件」） |
 | LFS | 未使用；xlsx 与字体直接入库 |
 | 提交人 | TwoDoge891010（换账号后新账号需被加为协作者，或在本地改 remote 为新仓库） |
@@ -188,7 +188,7 @@ git log --oneline -3
 | 已提交 | `docs/combat-bd-boss-level-v1.0.md` | v1.1 细化稿整份（新建） |
 | 已提交 | `docs/handover.md` | 本文（新建） |
 
-> 包含在提交 `753f0dd`（2026-10-29），已推送到 `origin/main`。
+> 包含在提交 `753f0dd`（2026-10-29），已推送到 `origin/main`；本文的状态说明在 `035872f` 收尾。
 > 接手后先跑 `git status`，应无任何输出；若有，说明本地又被改过，先确认再动。
 
 ---
