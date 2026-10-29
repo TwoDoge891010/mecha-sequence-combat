@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>机动战姬：棘罪魔女 — 游戏策划需求文档 v0.8</title>
+<title>机动战姬：棘罪魔女 — 游戏策划需求文档 v0.8（数据同步 2026-10-27）</title>
 <style>
   @font-face {
     font-family: 'Tektur';
@@ -211,7 +211,7 @@
 
 <!-- ============ COVER ============ -->
 <header class="cover">
-  <div class="kicker">Game Design Requirements · v0.8</div>
+  <div class="kicker">Game Design Requirements · v0.8 · 数据同步 2026-10-27</div>
   <h1>机动战姬：棘罪魔女<br>游戏策划需求文档</h1>
   <p class="sub">v0.8：双序列可编程（攻击序列 + 重装序列）+ 超限释放终结技；行为插件一插件一用、自动九变体（3 稀有度 × 3 槽：攻/装/超）；赋能插件一插件一用附着行为插件；重装序列根行为插件 CD + 中继链独立触发。世界观与剧情见 08（锚定《月落之时》宇宙）。</p>
   <div class="meta-chips">
@@ -280,7 +280,7 @@
         <tbody>
           <tr><td>序列插槽</td><td>攻击序列轨 / 超限释放轨上的装配单元，一个序列插槽 = 一棵技能树</td></tr>
           <tr><td>技能树</td><td>序列插槽下的插件组，<strong>树状拼装</strong>：插件上下接口圆点对接成树（父插件触发子插件）；赋能插件为<strong>词缀</strong>（附着行为插件、作用于该插件本身，不入树结构）；中继插件为触发中继（一拖 N）；行为插件为根/叶；<mark class="key">全局衔接校验：任意两个攻击行为之间（无论中间是否有赋能插件）必须存在至少一个中继插件</mark></td></tr>
-          <tr><td>行为插件</td><td>释放具体攻击或召唤行为（火箭冲拳、钩索、蓄能炮、浮游炮、光剑挑刺等）；<strong>不分轻/重</strong>，可装配给任意键位（传说法师式）；带<strong>标签</strong>（近战/远程/燃烧/感电/击飞/召唤等）；<strong>每棵树第一个（根插槽）行为插件是动画载体</strong>，其余由中继触发的子技能只做特效与伤害、不播放主角动画</td></tr>
+          <tr><td>行为插件</td><td>释放具体攻击或召唤行为（炽燃斩、涡刃绞击、重力轰拳、等离子弹射、蚀染铳击、浮游机炮）；<strong>不分轻/重</strong>，可装配给任意键位（传说法师式）；带<strong>标签</strong>（近战/远程/燃烧/感电/失衡/牵引/召唤等）；<strong>每棵树第一个（根插槽）行为插件是动画载体</strong>，其余由中继触发的子技能只做特效与伤害、不播放主角动画</td></tr>
           <tr><td>连段（连击）</td><td><strong>与技能树无关</strong>，只发生在<strong>攻击序列（普通攻击）根插槽行为插件</strong>上：连续按攻击键衔接该插件自身的多段动作（如某挥砍插件连按 = 三段挥砍）。技能树中由中继插件触发的所有子技能都只是<strong>技能特效 + 伤害结算</strong>，不涉及主角动画；播放主角动画的只有各序列的根行为插件。</td></tr>
           <tr><td>赋能插件</td><td><strong>词缀</strong>：附着在行为插件上（不入树结构、不参与树形拼装），作用于<strong>所附着的那个行为插件本身</strong>；有适用性权衡（环绕 + 长距索敌互斥）与受附要求（如追踪仅可附着远程弹道类、近战不可赋予）；<strong>补充（2026-10-01 职责定稿）：触发下游 = 中继专属职责</strong>——攻击之间仍须由中继衔接，赋能不触发下游；但赋能可以做<strong>依据上游改变自身形态</strong>的变形词缀（如「公转」让所附插件绕上游技能运行）；每插件最多 2 个赋能，载荷叠加</td></tr>
           <tr><td>中继插件</td><td>表述为「上方技能命中时 → 触发下方技能」；提供触发条件（命中失衡敌人时、命中燃烧敌人时、击中时、累积命中 N 次时、召唤物销毁时等），条件满足自动触发其下方技能——<strong>中继必须满足条件才触发，触发条件的苛刻度门控效率；「触发」是中继的专属职责（2026-10-01 定稿）</strong>；<strong>下方接口 N 个圆圈 = 一拖 N</strong>（图形化可见），支持一分多分支与串联链；被触发的技能零前后摇</td></tr>
@@ -290,8 +290,8 @@
           <tr><td>自由搓招</td><td>攻击序列 + 重装序列为两个可编程攻击输入，与超限释放构成三键；玩家可随时自由选择任意键搓招；两序列同级无轻重之分</td></tr>
             <tr><td>顺序位读取</td><td><s>v0.8 已退役</s>：顺序施放改为独立搓招后此机制不再适用</td></tr>
             <tr><td>中断续接</td><td><s>v0.8 已退役</s>：顺序施放改为独立搓招后此机制不再适用</td></tr>
-          <tr><td>机甲核心</td><td>机甲的「心脏」槽，<strong>规则改写型</strong>质变组件（暖雪式武器定位）：改写资源 / 树结构 / 触发 / 搓招规则，并决定超限释放的演出形态（终结演出）</td></tr>
-          <tr><td>超限释放</td><td>消耗热量值的重击施放（原「重攻击 / 强化重击」）：自带强化演出与终结演出，特效与卡点音效由机甲核心定制；独立单插件槽，只放 1 个行为插件（零载荷、不编程）</td></tr>
+          <tr><td>机甲核心</td><td>机甲的「心脏」槽，<strong>规则改写型</strong>质变组件（暖雪宗门 / 哈迪斯武器形态定位）：改写资源 / 树结构 / 触发 / 搓招规则；作为流派「锚」，与招牌组合共同涌现出 BD（见 4.8 / 4.11）</td></tr>
+          <tr><td>超限释放</td><td>消耗热量值的重击施放（原「重攻击 / 强化重击」）：自带强化演出与终结演出，<strong>演出形态由所嵌入的行为插件定制，与核心无关</strong>；独立单插件槽，只放 1 个行为插件（零载荷、不编程）</td></tr>
           <tr><td>载荷</td><td>构装插件占用的装配资源（原「费用」×10）；上限称<strong>整装载荷</strong>，全部序列槽位共用（整装总预算），初始 300（已定）</td></tr>
         </tbody>
       </table>
@@ -328,22 +328,22 @@
     </ul>
     <div class="proto">
       <div class="proto-title">交互原型 · 技能树施放演示器（v0.8 跨树协作）</div>
-      <div class="proto-desc">跨树协作示例：树 A 火拳施加燃烧（制造状态）→ 树 B 电磁指施加感电（与燃烧共存触发爆燃反应）、并制造失衡供苛刻中继引用。点击「自动演示」观察：树A 燃烧 → 树B 感电 → 爆燃→过载 → 苛刻中继命中失衡触发雷霆轰炸 ×1.6。</div>
+      <div class="proto-desc">跨树协作示例：树 A 炽燃斩施加燃烧（制造状态）→ 树 B 等离子弹射在命中燃烧敌人时触发跨树中继「灼芯回路」（追击炽燃斩 ×0.84），随后施加感电与燃烧共存触发爆燃反应。点击「自动演示」观察完整链路。</div>
       <div class="treegrid" id="treegrid"></div>
       <div class="sim">
         <div class="pad">
           <button class="btn" id="btnSeqA">攻击序列</button>
           <button class="btn" id="btnSeqB">重装序列</button>
-          <button class="btn h" id="btnHeavy">超限释放（耗热量值 4）</button>
+          <button class="btn h" id="btnHeavy">超限释放（耗热 70）</button>
           <button class="btn small" id="btnAuto">自动演示跨树</button>
           <button class="btn small" id="btnReset">重置</button>
         </div>
         <div class="readouts">
-          <div class="rlabel"><span>热量值</span><span id="energyVal">0 / 10</span></div>
+          <div class="rlabel"><span>热量值</span><span id="energyVal">70 / 120</span></div>
           <div class="meter"><div id="energyBar"></div></div>
           <div class="rlabel"><span>敌人状态</span></div>
           <div class="statuses" id="statuses"></div>
-          <div class="log" id="log">双序列编程：攻击序列（普攻连段·无CD）挂燃烧 → 重装序列（特殊攻击·CD）挂感电+失衡 → 跨树协作触发高倍率（燃烧+感电=爆燃）。</div>
+          <div class="log" id="log">双序列编程：攻击序列（普攻连段·无CD）挂燃烧 → 重装序列（特殊攻击·CD）命中燃烧触发跨树中继并挂感电 → 爆燃烧结算。演示初始热量 70，便于直接体验超限释放。</div>
         </div>
       </div>
     </div>
@@ -353,15 +353,43 @@
       <table>
         <thead><tr><th>类型</th><th>定义</th><th>示例</th><th>关键规则</th></tr></thead>
         <tbody>
-          <tr><td>赋能插件</td><td>行为插件的<strong>词缀</strong>，附着在行为插件上、作用于该插件本身（不入树结构）</td><td>范围扩大、双重释放、从天而降、环绕、强行追踪、弹道贯穿</td><td>只作用于<strong>所附着行为插件</strong>；每插件最多 2 个，载荷叠加；存在适用性权衡与受附要求（追踪仅限远程弹道类）；<strong>不承担衔接职责</strong>（攻击之间仍须由中继衔接）；不分连击/超限</td></tr>
-          <tr><td>行为插件</td><td>释放具体攻击/召唤行为</td><td>火箭冲拳、钩索、蓄能炮、召唤浮游炮、光剑挑刺、挑飞斩</td><td><strong>不分连击/超限</strong>，可装配任意键位；带标签（近战/远程/燃烧/感电/击飞/召唤）；<strong>根插槽（第一个）行为插件是动画载体</strong>，其余为被触发的叶（只做特效与伤害、无主角动画）；全局校验：任意两个行为插件之间必须有中继插件</td></tr>
-          <tr><td>中继插件</td><td>条件触发组件：「上方技能命中时 → 触发下方技能」</td><td>命中失衡敌人时、命中燃烧敌人时、击中时、累积释放 N 次时</td><td><strong>下方 N 个接口圆圈 = 一拖 N</strong>（2–3）+ 串联链；被触发技能零前后摇；条件只能引用他树制造的状态；<strong>多分支不摊薄效率</strong>（多分支本身为稀有插件 II/III，见 4.3.1）</td></tr>
+          <tr><td>赋能插件</td><td>行为插件的<strong>词缀</strong>，附着在行为插件上、作用于该插件本身（不入树结构）</td><td>范围扩大、双重释放、环绕、强行追踪、临界引爆、助燃、雷引（共 23 条）</td><td>只作用于<strong>所附着行为插件</strong>；每插件最多 2 个，载荷叠加；存在适用性权衡与受附要求（追踪仅限远程弹道类）；<strong>不承担衔接职责</strong>（攻击之间仍须由中继衔接）；不分连击/超限</td></tr>
+          <tr><td>行为插件</td><td>释放具体攻击/召唤行为</td><td>炽燃斩、涡刃绞击、重力轰拳、雷矢链刺、侵蚀爪刃、等离子弹射……（共 15 系列：近战 12 / 远程 2 / 召唤 1）</td><td><strong>不分连击/超限</strong>，可装配任意键位；带标签（近战/远程/燃烧/感电/失衡/牵引/召唤）；<strong>根插槽（第一个）行为插件是动画载体</strong>，其余为被触发的叶（只做特效与伤害、无主角动画）；全局校验：任意两个行为插件之间必须有中继插件</td></tr>
+          <tr><td>中继插件</td><td>条件触发组件：「上方技能命中时 → 触发下方技能」</td><td>连击链动（命中时）、灼芯回路（命中燃烧）、失衡爆破（命中失衡）、殉爆接力（召唤物销毁）、走时回路（每 3s）</td><td><strong>下方 N 个接口圆圈 = 一拖 N</strong>（2–3）+ 串联链；被触发技能零前后摇；条件只能引用他树制造的状态；<strong>多分支不摊薄效率</strong>（多分支本身为稀有插件 II/III，见 4.3.1）；共 8 插件 × 3 稀有度 = 24 变体</td></tr>
         </tbody>
       </table>
     </div>
 
     <h3>4.3.1 行为插件设计原则（统一格式 · v0.8 · 分页版）</h3>
-    <p>本节定义<strong>行为插件</strong>（可嵌入的攻击插件）的<b>设计原则与统一格式</b>；<mark class="key">具体插件数据（各系列数值表）只维护在 xlsx 中</mark>，此处不再重复陈列。<mark class="key">一个插件 = 一个系列 = 3 个稀有度版本 × 3 个插槽 = 9 个独立技能</mark>。<strong>稀有度是插件的固有属性</strong>（一个插件固定一个稀有度档，不随槽位改变）；同一插件以 I / II / III 三个稀有度版本存在，每个版本都能嵌入攻击序列 / 重装序列 / 超限释放三个插槽，共 9 个独立技能。每个技能<mark class="key">继承同一插件版本的核心攻击形态</mark>，三槽共享同一中文通用名，但各有独立引擎ID（引擎中视为独立技能，ID 含稀有度后缀，如 <span class="mono">BT_BLAZE_BURST_II</span>）。攻击序列为<strong>三段连段</strong>，伤害与热能产生用公式表达（如 <span class="mono">3+5+7</span>）；状态施加通常仅落在最后一段。<mark class="key">伤害层级</mark>遵循<strong>攻击序列 &lt; 重装序列 &lt; 超限释放</strong>：攻击序列无 CD，伤害权重最低；重装 / 超限按冷却与消耗加码。同插件不同稀有度版本在动作、热能、判定上保持一致，<mark class="key">伤害按成长系数递进</mark>（I ×1.0 / II ×1.2 / III ×1.4），稀有度偶尔影响状态附着（如重装序列 III 附加击退，I / II 不带）。<mark class="key">状态施加门槛</mark>通常为<strong>单一状态</strong>：普攻 / 重装 / 超限一般只附加一种状态（不做复合叠加）；同一插件不同稀有度版本偶尔改变状态附着，默认保持稳定的单一状态。<strong>状态时长用通用算式另行计算</strong>，此处不写。<mark class="key">位移</mark>是主角本体能力，不随稀有度改变，插件只描述本技能中的位移动作（原地 / 突进 / 中距突进 / 短距位）。赋能 / 中继插件另开规范，此处不涉及。</p>
+    <p>本节定义<strong>行为插件</strong>（可嵌入的攻击插件）的<b>设计原则与统一格式</b>；<mark class="key">具体插件数据（各系列数值表）只维护在 xlsx 中</mark>，此处不再重复陈列。<mark class="key">一个插件 = 一个系列 = 3 个稀有度版本 × 3 个插槽 = 9 个独立技能</mark>。<strong>稀有度是插件的固有属性</strong>（一个插件固定一个稀有度档，不随槽位改变）；同一插件以 I / II / III 三个稀有度版本存在，每个版本都能嵌入攻击序列 / 重装序列 / 超限释放三个插槽，共 9 个独立技能。每个技能<mark class="key">继承同一插件版本的核心攻击形态</mark>，三槽共享同一中文通用名，但各有独立引擎ID（引擎中视为独立技能，ID 含稀有度后缀，如 <span class="mono">BT_BLAZE_BURST_II</span>）。攻击序列为<strong>三段连段</strong>，伤害与热能产生用公式表达（如炽燃斩 I <span class="mono">4+6+8</span>，热能 <span class="mono">2+3+4</span>）；状态施加落在末段或三段轻积累，视插件而定。<mark class="key">伤害层级</mark>遵循<strong>攻击序列 &lt; 重装序列 &lt; 超限释放</strong>：攻击序列无 CD，伤害权重最低；重装 / 超限按冷却与消耗加码。同插件不同稀有度版本在动作、热能、判定上保持一致，<mark class="key">伤害按成长系数递进</mark>（I ×1.0 / II ×1.2 / III ×1.4），稀有度偶尔影响状态附着（如重装序列 III 附加击退，I / II 不带）。<mark class="key">状态施加门槛</mark>通常为<strong>单一状态</strong>：普攻 / 重装 / 超限一般只附加一种状态（不做复合叠加）；同一插件不同稀有度版本偶尔改变状态附着，默认保持稳定的单一状态。<strong>状态时长用通用算式另行计算</strong>，此处不写。<mark class="key">位移</mark>是主角本体能力，不随稀有度改变，插件只描述本技能中的位移动作（原地 / 突进 / 中距突进 / 短距位）。赋能 / 中继插件另开规范，此处不涉及。</p>
+    <h4>当前行为插件池（15 系列 · 135 个独立技能）</h4>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>系列</th><th>Tag</th><th>状态施加</th><th>三槽形态差异（攻击 / 重装 / 超限）</th></tr></thead>
+        <tbody>
+          <tr><td colspan="4" style="background:rgba(255,180,84,.08);font-weight:600">近战池（12 系列）</td></tr>
+          <tr><td>炽燃斩</td><td>近战 / 燃烧</td><td>燃烧（三段均累计）</td><td>三段焰刃连击 / 中距突进 + 末端焰爆 / 三连大范围挥砍（高累积燃烧）</td></tr>
+          <tr><td>涡刃绞击</td><td>近战 / 牵引</td><td>无附着（控制类聚怪）</td><td>点按横扫·长按蓄力 6 段 / 4 段暴风横扫沿途牵引 / 全场刃环强牵引 + 终结重斩</td></tr>
+          <tr><td>重力轰拳</td><td>近战 / 失衡</td><td>失衡（重装 II 起累计）</td><td>突进重拳三连 / 上勾拳挑空 + 失衡 / 三次砸地（高累积失衡）</td></tr>
+          <tr><td>雷矢链刺</td><td>近战 / 感电</td><td>感电（三段轻积累，弹射跳少量）</td><td>三段电步突刺·每段链式弹射 / 中距电步突进·命中点向 3 敌弹射 / 全域电场罩·持续落雷</td></tr>
+          <tr><td>侵蚀爪刃</td><td>近战 / 侵蚀</td><td>侵蚀（三段轻积累，重装腐蚀带持续累计）</td><td>三段高速爪击·附腐化减速 / 中距爪光突进·路径留腐蚀带 / 腐蚀领域·全场酸雾</td></tr>
+          <tr><td>索锚打击</td><td>近战 / 牵引</td><td>无（控制类，非状态）</td><td>掷锚拉敌至面前·定身 / 反向钩索·自身拽向敌人 / 六根锚链锁场·拽向中心乱刺</td></tr>
+          <tr><td>爆震跃击</td><td>近战</td><td>无</td><td>短距前跃·落地冲击波 / 高跳重砸·大范围冲击波 / 连续三次坠地震击</td></tr>
+          <tr><td>筑垒推进</td><td>近战</td><td>无</td><td>举盾慢推·正面弹幕反弹 / 中距盾冲·反弹弹幕 + 末端击退 / 减速护罩·自身减伤 50%</td></tr>
+          <tr><td>蓄力重斩</td><td>近战</td><td>无</td><td>点按轻斩·长按蓄力宽斩 / 短蓄破势冲锋·对韧段 +50% / 超长蓄力贯穿巨型斩</td></tr>
+          <tr><td>多重连刺</td><td>近战</td><td>无</td><td>五段高速连刺·滑步跟进 / 八方向环形突刺 6 段 / 2.5s 高频乱刺 10 段·高削韧</td></tr>
+          <tr><td>破韧重装</td><td>近战</td><td>无</td><td>三段重锤砸地·高削韧 / 蓄势砸穿·对破防敌人 ×1.5 / 四次大范围砸地·逐次加重</td></tr>
+          <tr><td>铭痕裂击</td><td>近战 / 标记联动</td><td>无（不施加、不引爆标记，仅对已标记敌人增伤）</td><td>三段斩击·已标记每段附加固定伤害 / 突进斩·已标记 +60% / 瞬移至每个已标记敌人各斩一刀</td></tr>
+          <tr><td colspan="4" style="background:rgba(255,180,84,.08);font-weight:600">远程池（2 系列）</td></tr>
+          <tr><td>等离子弹射</td><td>远程 / 感电</td><td>感电（每跳累计）</td><td>弹射 1 次 / 离子球爆散弹幕 / 扇面多枚离子球铺射</td></tr>
+          <tr><td>蚀染铳击</td><td>远程 / 侵蚀</td><td>侵蚀（每弹累计，重装/超限更高）</td><td>三段 3 弹道散射 / 5 弹道大扇形 + 后坐位移 / 7 弹道连轰三次</td></tr>
+          <tr><td colspan="4" style="background:rgba(255,180,84,.08);font-weight:600">召唤池（1 系列）</td></tr>
+          <tr><td>浮游机炮</td><td>召唤</td><td>无（召唤物攻击不累计状态）</td><td>召 1 台（6s）/ 召 3 台（12s）/ 满铺 6 台 + 全场攻速 3s 后统一销毁</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><mark class="key">变体核对</mark>：15 系列 × 3 稀有度 × 3 槽 = <strong>135 个独立技能</strong>（主表 45 行 = 15 系列 × 3 稀有度）；稀有度只改伤害成长系数（I ×1.0 / II ×1.2 / III ×1.4）与偶发状态/控制差异，动作、热能、判定保持一致。完整数值以 <span class="mono">src/plugin-tables/behavior-plugin-tables-v0.8.xlsx</span> 为真值。</p>
+    <p><mark class="key">状态覆盖缺口</mark>：<strong>标记</strong>目前只有「铭痕裂击」这一个消费方（对已标记敌人增伤），<strong>尚无行为插件施加标记</strong>，该状态暂由赋能 / 中继侧补位，待补行为来源。</p>
     <h4>插件命名规范</h4>
     <div class="table-wrap">
       <table>
@@ -446,35 +474,35 @@
 
     <h3>4.6 热量值系统与超限释放（v0.8 · 已定）</h3>
     <p>热量值<mark class="key">只与各序列插槽的根行为插件相关</mark>：攻击序列与重装序列的<strong>根行为插件命中时积攒对应热量值</strong>；超限释放<strong>消耗对应热量值</strong>施放（超限释放轨上的行为插件获得强化演出与终结演出，特效 + 卡点音效按所嵌入行为插件定制）；<mark class="key">取消独立终结技</mark>。热量值上限与超限释放耗热量均受机甲核心「资源规则」改写。<mark class="key">中继插件触发的技能不产生也不消耗热量值</mark>，热量值只由根行为插件结算。</p>
-    <p><strong>热量值超限转伤害加成（非通用 · 特定核心专属）</strong>：默认机体核心<strong>不存在</strong>「热量超限转比例伤害加成」——热量超出耗热量的部分在无对应核心时不产生任何收益。只有<mark class="key">具备「热量转伤害」资源规则的特定核心（见 4.8 核心设计）</mark>才会启用该加成：热量值上限 120、某行为插件作为超限释放需耗 80，则热量超过 80 的部分按比例转化为伤害加成（超出越多加成越高）。其余机体核心均无此加成。</p>
+    <p><strong>热量值超限转伤害加成（非通用 · 特定核心专属）</strong>：默认机体核心<strong>不存在</strong>「热量超限转比例伤害加成」——热量超出耗热量的部分在无对应核心时不产生任何收益。只有<mark class="key">具备「热量转伤害」资源规则的特定核心（见 4.8 核心设计）</mark>才会启用该加成：热量值上限 120，某超限释放需耗 65–75，则热量超出该阈值的部分（最多约 55 点）按比例转化为伤害加成（超出越多加成越高）。其余机体核心均无此加成。</p>
 
     <h3>4.7 超限释放</h3>
     <p>超限释放为<strong>独立单插件槽</strong>：只放 1 个行为插件（零载荷、不编程、不配置中继），该插件消耗对应热量值施放并获得强化演出与终结演出（形态按所嵌入行为插件定制，与核心无关）；可消费攻击/重装序列各树制造的状态（跨树协作收益）。攻击序列、重装序列与超限释放共享同一整装载荷与构装库。</p>
 
     <h3>4.8 机甲核心（暖雪式质变 · 新增）</h3>
-    <p>机甲的「心脏」槽，全局唯一（一次只能装配一个核心）。定位参考暖雪的武器 / 哈迪斯的武器形态：<mark class="key">不是数值加成型，而是规则改写型</mark>——每个核心改写 1–2 条系统规则，从而质变整个 BD 的方向。（超限释放的终结演出不再由核心决定，改由所嵌入的行为插件定制，见 4.7。）</p>
+    <p>机甲的「心脏」槽，全局唯一（一次只能装配一个核心）。定位参考暖雪的宗门 / 哈迪斯的武器形态：<mark class="key">核心 = 锚，不是数值加成型而是机制质变型</mark>——每个核心改变「你玩这一局的方式」，而不是给 ±X% 伤害。玩家认知是「这局玩 <span class="mono">熔炉 × 引火自焚</span>」这种「核心 + 招牌组合」，不是背一张官方流派表。<strong>流派不预设死清单，而是由「锚 × 招牌组合」自然涌现</strong>（完整方法论见 4.11）。（超限释放的终结演出不再由核心决定，改由所嵌入的行为插件定制，见 4.7。）</p>
     <h4>质变维度（核心可改写的规则面）</h4>
     <ul>
-      <li><strong>资源规则</strong>：改热量值循环（重击改耗生命、积能倍率、热量值上限）。</li>
-      <li><strong>树结构规则</strong>：改装配约束（中继接口 +1、赋能由「单插件词缀」改写为「作用于整棵子树」、树根限制）。</li>
+      <li><strong>资源规则</strong>：改热量值循环（超限改耗生命、闲置热量变现、热量值上限）。</li>
+      <li><strong>树结构规则</strong>：改装配约束（中继接口 +1、解除跨树 / 中继铁律）。</li>
       <li><strong>触发规则</strong>：改中继语义（全局效率修正、触发间隔、分支数上限）。</li>
-      <li><strong>搓招规则</strong>：改攻击序列行为（自动连携、跨键触发、热量值循环改写）。</li>
+      <li><strong>搓招规则</strong>：改输入节拍（切键重置 CD、自动连携、自由派生）。</li>
     </ul>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>核心（示例）</th><th>质变效果</th><th>流派方向</th></tr></thead>
+        <thead><tr><th>核心（锚）</th><th>机制质变</th><th>代价 / 权衡</th><th>数值 [初稿]</th></tr></thead>
         <tbody>
-          <tr><td>熔炉核心 · 过载</td><td>重击不耗热量值改为消耗 15% 生命；热量值只服务终结爆发；中继效率全局 +0.2</td><td>高风险高回报爆发流</td></tr>
-          <tr><td>节拍核心 · 连奏</td><td>三键连携加成：短时间三键各用一次伤害 +30%；攻击序列积热量值 +50%</td><td>自由搓招流（鼓励切键穿插）</td></tr>
-          <tr><td>织网核心 · 蜘蛛</td><td>中继插件接口 +1（一拖 3 → 一拖 4）；中继效率全局 -0.3</td><td>铺场召唤流</td></tr>
-          <tr><td>钟摆核心 · 悖论</td><td>任一攻击序列释放后，下一击自动切入下一键的技能树（伪自动搓招）；超限释放不耗热量值改为消耗生命</td><td>自动连携流</td></tr>
-          <tr><td>指挥核心 · 战术</td><td>允许行为插件直接衔接（无需中继，衔接效率 ×0.6）；中继条件可引用本树状态（解除跨树限制，效率 ×0.8）</td><td>自由编排流 / 高风险</td></tr>
+          <tr><td>熔炉 · 过载</td><td>超限的经济来源从「攒热」改成「用生命」；闲置热量可变现为伤害</td><td>换血高风险；需要主动管理血量</td><td>超限耗 15% 当前生命；热量溢出 ×0.5%/点 转伤害加成</td></tr>
+          <tr><td>节拍 · 连奏</td><td><strong>节拍点</strong>：连携窗口内切键即重置重装根 CD；累计 3 拍触发「自由派生」额外一击（不占槽、不耗热）</td><td>节奏断了（超窗 / 重复同键）全部清空</td><td>连携窗口 3s；每 3 拍 1 次派生</td></tr>
+          <tr><td>织网 · 蜘蛛</td><td>中继接口 +1（一拖 3 → 4），把「点」铺成「网」</td><td>中继效率全局 −0.3</td><td>接口 +1；效率 −0.3</td></tr>
+          <tr><td>钟摆 · 悖论</td><td>手动三键切 → 系统自动切入，释放双手去走位</td><td>失去精确打点自由</td><td>攻击序列连招后自动接重装根</td></tr>
+          <tr><td>指挥 · 战术</td><td>突破两条装配铁律（必须有中继 / 跨树协作），换来单树编排自由</td><td>免中继 ×0.6、本树引用 ×0.8 双惩罚</td><td>免中继衔接 ×0.6；本树引用 ×0.8</td></tr>
         </tbody>
       </table>
     </div>
     <div class="callout">
       <div class="ct">设计与开发提示</div>
-      <p>核心 = 规则的「差量补丁」：每个核心只是一份规则覆盖表（改写哪些规则、新值是多少），引擎侧实现为「核心修正器」挂载在装配校验 / 触发结算 / 顺序推进的钩子上。三个核心起步（对应 3 人团队每人一条核心线），数值 [待定]。</p>
+      <p>核心 = 规则的「差量补丁」：每个核心只是一份规则覆盖表（改写哪些规则、新值是多少），引擎侧实现为「核心修正器」挂载在装配校验 / 触发结算 / 顺序推进的钩子上。MVP 5 个锚（可拓展），数值 [初稿] 待原型调平。</p>
     </div>
 
     <h3>4.9 状态规则（状态类型与反应逻辑 · v0.8 · 已定）</h3>
@@ -518,18 +546,178 @@
 
     <h3>4.10 精英 / Boss 抗性与韧性机制（v0.8 · 已定）</h3>
     <p>韧性做成<mark class="key">独立于血量的「韧段」条</mark>，参考原神削韧 + 哈迪斯破甲 + 怪物猎人递进阈值。韧性机制每层只做「一条规则」，无嵌套系统，开发成本可控。</p>
+    <div class="callout info">
+      <div class="ct">定位降级（2026-10-27 同步）</div>
+      <p>韧段破防 = <strong>额外输出窗口</strong>，不是通关硬门槛。Boss 设计以「动作为主、BD 为加分」（见 4.12）：不会 BD 的玩家靠读前摇 + 抓后摇也能过，会 BD 的玩家打得更快更爽。破防窗口是「奖励」，不是「唯一解」。</p>
+    </div>
     <div class="table-wrap">
       <table>
         <thead><tr><th>机制</th><th>参考</th><th>规则</th></tr></thead>
         <tbody>
-          <tr><td>韧段 + 破防</td><td>原神削韧 / 哈迪斯破甲</td><td>攻击附带「削韧量」；韧段见底 → <strong>破防窗口</strong>（可打断、控制全效、易伤增伤），窗口结束韧段重置</td></tr>
+          <tr><td>韧段 + 破防</td><td>原神削韧 / 哈迪斯破甲</td><td>攻击附带「削韧量」；韧段见底 → <strong>破防窗口</strong>（可打断、控制全效、易伤 ×1.3），窗口约 2.0s，结束韧段重置</td></tr>
           <tr><td>失衡触发</td><td>失衡规则修正</td><td><strong>失衡不由破韧直接产生</strong>；少数插件在破韧（破防窗口）条件下可打出失衡效果，为控制态</td></tr>
-          <tr><td>精英 vs Boss</td><td>原神强抗 Boss</td><td>精英韧段中、抗性低；Boss 韧段极高、基本不因轻攻击硬直（逼玩家找弱点而非站桩控死）</td></tr>
-          <tr><td>递进抗性</td><td>怪物猎人递进阈值</td><td>同一控制 / 反应每次触发后，下次所需累积值提升，防无限控</td></tr>
+          <tr><td>精英 vs Boss</td><td>原神强抗 Boss</td><td>精英韧段中、抗性低；Boss 韧段高、基本不因轻攻击硬直（逼玩家找弱点而非站桩控死）</td></tr>
+          <tr><td>递进抗性</td><td>怪物猎人递进阈值</td><td>同一控制 / 反应每次触发后，下次所需累积值提升（同类第 N+1 次 ×1.3，最多叠 5），防无限控</td></tr>
         </tbody>
       </table>
     </div>
-    <p><strong>超限释放 = 削韧大招</strong>：耗热量值换取高额削韧量与破防加成，与热量值系统（4.6）联动，成为攻坚精英 / Boss 韧段的制衡手段。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>韧段数值 [初稿]</th><th>杂兵</th><th>精英</th><th>Boss</th></tr></thead>
+        <tbody>
+          <tr><td>韧段长度</td><td class="mono">1</td><td class="mono">3</td><td class="mono">8</td></tr>
+          <tr><td>削韧量（攻击 / 重装 / 超限）</td><td class="mono">1 / 3 / 6</td><td class="mono">1 / 3 / 6</td><td class="mono">1 / 3 / 6</td></tr>
+          <tr><td>破防窗口</td><td colspan="3">约 2.0s（对齐失衡 2s）：窗口内控制全效 + 易伤 ×1.3</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>超限释放 = 削韧大招</strong>：耗热量值换取高额削韧量与破防加成，而超限耗热按插件分档（炽燃 65 / 重力 70 / 涡刃·等离子·蚀染·浮游 75），与热量值系统（4.6）联动，成为加速踩出破防窗口的手段。</p>
+
+    <h3>4.11 流派设计（锚 × 招牌组合涌现）</h3>
+    <p>本作<strong>不预设「官方五大流派」死清单</strong>。借鉴哈迪斯「武器形态 Aspect」与暖雪「宗门」的做法，流派由 <mark class="key">机甲核心（锚）× 招牌组合</mark> 自然涌现：玩家记住的是「这局玩熔炉 × 引火自焚」，而不是背一张流派表。本节只给四样东西：锚清单（见 4.8）→ 协同规则 → 招牌组合 → 化学反应层。</p>
+    <h4>协同规则（玩家可背的口诀）</h4>
+    <ol>
+      <li><strong>状态是弹药，中继当扳机</strong>：行为铺状态，中继消费他树状态（跨树铁律）。</li>
+      <li><strong>轻积重耗</strong>：攻击序列高频铺热，重装 / 超限低频大额。</li>
+      <li><strong>引爆清空持续</strong>：助燃（持续线）与临界引爆（爆发线）互斥。</li>
+      <li><strong>越苛刻越暴力</strong>：殉爆 / 失衡 &gt; 致命引信 &gt; 灼芯 / 感电 &gt; 连击 &gt; 走时。</li>
+      <li><strong>召唤不攒状态，只当引信</strong>：召唤路线与状态路线是两条轨道，靠「销毁」触发。</li>
+      <li><strong>暴击要主动买，标记要有人造</strong>：基础暴击 0%，需精准校准（率）+ 致命打击（倍）+ 标记来源投入。</li>
+    </ol>
+    <h4>招牌组合（引导入口，非死清单）</h4>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>招牌名</th><th>核心</th><th>关键插件</th><th>一句话原理</th><th>成型信号</th></tr></thead>
+        <tbody>
+          <tr><td>引火自焚</td><td>熔炉</td><td>炽燃斩 + 灼芯回路 + 临界引爆</td><td>铺火 → 爆燃清场 → 超限用命收割，溢出热转伤</td><td>一个超限清半屏</td></tr>
+          <tr><td>三连派生</td><td>节拍</td><td>三色行为 + 蓄势派生</td><td>三键轮切吃自由派生，重置重装 CD 连续打重音</td><td>重装序列连发不停</td></tr>
+          <tr><td>殉爆蜘蛛网</td><td>织网</td><td>浮游机炮 + 殉爆接力 + 走时回路</td><td>铺场压数量 → 销毁连环爆</td><td>满屏浮游炮 + 连爆</td></tr>
+          <tr><td>走时自动炮</td><td>钟摆</td><td>走时回路 + 蓄能齐射 + 连击链动</td><td>全自动触发链，站桩只躲招</td><td>不按键也持续出伤</td></tr>
+          <tr><td>单树长链</td><td>指挥</td><td>全系行为 + 公转（日月轨道）</td><td>免中继堆深链，单树干到底</td><td>一颗树上 5+ 节点</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>跨流派化学反应层（兼容 + 奇妙反应）</h4>
+    <p>流派之间<strong>不互斥</strong>：所有核心共享同一张状态网络 + 反应网络，混搭不同状态线 / 核心即可拼出 Duo 式化学反应。规则 = <mark class="key">两条条件共存即触发</mark>（类似哈迪斯 Duo Boons「两个神都在才触发」）。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>层</th><th>化学反应</th><th>触发条件</th><th>效果</th></tr></thead>
+        <tbody>
+          <tr><td rowspan="2">A 层 · 状态反应<br>［已定］</td><td>爆燃</td><td>燃烧 + 感电</td><td>范围伤害 + 短暂过载，消耗双状态（见 4.9）</td></tr>
+          <tr><td>电蚀</td><td>侵蚀 + 感电</td><td>侵蚀升级为电蚀（上限 +1、出伤加快）</td></tr>
+          <tr><td rowspan="4">B 层 · 核心 × 状态<br>［初稿］</td><td>引燃收割</td><td>熔炉 + 超限命中燃烧敌人</td><td>燃烧剩余 DoT 提前结算，并计入热量溢出增伤</td></tr>
+          <tr><td>导电蜂群</td><td>织网 + 浮游炮间存在感电敌人</td><td>浮游炮间传导感电，范围内敌人共享减防</td></tr>
+          <tr><td>破防派生</td><td>节拍 + 自由派生命中失衡敌人</td><td>派生必触发失衡爆破，并重置失衡条再触发</td></tr>
+          <tr><td>溶血潮汐</td><td>熔炉 + 耗命超限命中带侵蚀敌人</td><td>把侵蚀层数转为等额回复（以血养血）</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>B 层只给「规则与种子」，不预设死组合——玩家把两条条件线拼起来即触发，这正是「兼容 + 奇妙反应」的落点。更多种子在原型验证后追加。</p>
+    <h4>BD 断点（取舍点）</h4>
+    <ul>
+      <li><strong>整装载荷 300</strong>：钱有限，投行为 / 投中继 / 投赋能三选。</li>
+      <li><strong>每行为插件 ≤ 2 赋能</strong>：词缀位稀缺。</li>
+      <li><strong>散射 ↔ 双重释放</strong>：两套多重散布不叠做。</li>
+      <li><strong>环绕 ↔ 强行追踪</strong>：轨道自转 vs 长距索敌。</li>
+      <li><strong>机群扩编 ↔ 超频狂暴</strong>：求稳 vs 求爆。</li>
+      <li><strong>助燃 ↔ 临界引爆</strong>：持续线 vs 爆发线。</li>
+      <li><strong>状态催化 ↔ 断稳</strong>：提前建条 vs 踩住现条。</li>
+      <li><strong>标记制造来源</strong>：当前缺口，需补 1 个标记系行为 / 赋能。</li>
+    </ul>
+
+    <h3>4.12 Boss 原型设计（动作为主 · BD 为加分）</h3>
+    <h4>设计原则</h4>
+    <ol>
+      <li><strong>动作第一</strong>：重心在招式辨识、前摇反应、走位躲招、抓后摇输出。Boss 是「打出来的」，不是「算出来的」。</li>
+      <li><strong>BD 是加分</strong>：状态 / 中继 / 韧段不构成通关硬门槛，只决定「会 BD 的玩家打得更快更爽」。</li>
+      <li><strong>韧段降级</strong>：破防窗口 = 额外输出窗口（非唯一），见 4.10。</li>
+      <li><strong>状态是打点增益</strong>：状态对 Boss 生效但弱化，不逼玩家换流派。</li>
+    </ol>
+    <h4>Boss「晶枢守卫 · 棘枢」［初稿］</h4>
+    <p>灰域霸主晶化改造的魔女战士，灰域核心入口的第一道门神：曾与主角同源的魔女，保留高阶意识却失去自我，是「棘罪」失控结局的具象化。中型 Boss，中速节奏，靠「读前摇 + 抓后摇」过关。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>招式</th><th>前摇</th><th>判定</th><th>规避</th><th>后摇 / 惩罚</th></tr></thead>
+        <tbody>
+          <tr><td>横扫晶刃</td><td class="mono">0.6s 抬臂</td><td>近身扇形横扫带击退</td><td>绕后 / 后撤</td><td>收招 0.8s，可输出</td></tr>
+          <tr><td>晶簇钉弹</td><td class="mono">0.5s 亮刺</td><td>扇形弹幕 ×3 波</td><td>横向侧移</td><td>波间 0.5s 间隙</td></tr>
+          <tr><td>棘罪脉冲</td><td class="mono">1.0s 核心聚光</td><td>周身范围 DoT</td><td>离开核心圈</td><td>聚光结束 0.7s 硬直</td></tr>
+          <tr><td>突进劈斩</td><td class="mono">0.4s 俯身</td><td>直线突进 + 下劈</td><td>侧闪</td><td>劈空 1.0s 大硬直</td></tr>
+          <tr><td>召唤晶簇</td><td class="mono">0.8s 挥手</td><td>召 2–3 只晶簇杂兵</td><td>爆燃 / 范围清场</td><td>召唤时背对玩家</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>阶段</th><th>名称</th><th>动作变化（是动作模式变化，不是数值门）</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">P1</td><td>晶壳（100–70%）</td><td>招式速度偏慢，晶壳减伤 30%（非 50%，避免拖沓）；主用横扫 + 钉弹</td></tr>
+          <tr><td class="mono">P2</td><td>棘罪（70–35%）</td><td>晶壳破裂，新增「突进劈斩」，前摇缩短 20%，进入高强度对拼</td></tr>
+          <tr><td class="mono">P3</td><td>暴走（≤35%）</td><td>全招式衔接加快、弹幕加密，但「棘罪脉冲」后硬直更长 → 高风险高回报</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>BD 加分点（不构成门槛，只优化效率）</th><th>对 Boss 的效果</th></tr></thead>
+        <tbody>
+          <tr><td>燃烧</td><td>晶壳态持续 DoT 照常跳，变相削弱减伤</td></tr>
+          <tr><td>感电</td><td>减防生效，放大窗口输出</td></tr>
+          <tr><td>失衡</td><td>破防窗口内控制全效，创造额外输出窗口</td></tr>
+          <tr><td>超限释放</td><td>大额削韧，加速踩出破防窗口</td></tr>
+          <tr><td>爆燃反应</td><td>清晶簇杂兵的最快解</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>玩家<strong>不依赖任何状态也能过</strong>（靠动作躲招 + 基础输出）；状态是「打得快」的杠杆，不是「过不过」的钥匙。</p>
+    <h4>Boss 2（终极 · 框架）「灰域霸主」［初稿］</h4>
+    <p>盘踞灰域的强横晶化个体，接近 Azul_01 完全体，是魔女「棘罪」阴影根源。终章 Boss，三形态（灰域领主 → 棘罪真身 → 准 Azul_01）；动作主核为更高密度弹幕 + 需精确读前摇的连段；不同形态对部分状态更敏感，仅作「打得快」的提示而非门槛。情感镜像：终战呼应「棘罪 = 力量与代价一体」，Boss 失控即主角可能的结局。</p>
+
+    <h3>4.13 关卡设置</h3>
+    <h4>结构总览（Hub + 四区域 + 关底）</h4>
+    <pre class="mono" style="background:var(--bg3);border:1px solid var(--rule);border-radius:10px;padding:1rem 1.2rem;overflow-x:auto;margin:1rem 0 1.4rem;line-height:1.9">铸炉基地（Hub）
+   ├─ 区域1 灰域边缘（教学：近战 + 燃烧 + 首个中继）
+   ├─ 区域2 蚀染荒原（教学：远程 + 侵蚀 + 状态累计条）
+   ├─ 区域3 雷暴废墟（教学：感电 + 召唤 + 定时引信）
+   └─ 区域4 灰域核心（整合：失衡 + 暴击 + 韧段）
+              └─ 关底 Boss「晶枢守卫·棘枢」</pre>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>区域</th><th>状态 / 环境主题</th><th>解锁</th><th>教学重点</th></tr></thead>
+        <tbody>
+          <tr><td>1 灰域边缘</td><td>燃烧、近战</td><td>炽燃斩 + 连击链动</td><td>双序列编程 + 三键输入上手</td></tr>
+          <tr><td>2 蚀染荒原</td><td>侵蚀、远程</td><td>蚀染铳击 + 灼芯回路 + 临界引爆</td><td>状态累计条 + 触发苛刻度</td></tr>
+          <tr><td>3 雷暴废墟</td><td>感电、召唤</td><td>等离子弹射、浮游机炮 + 殉爆接力</td><td>定时引信 + 跨树铁律</td></tr>
+          <tr><td>4 灰域核心</td><td>失衡、暴击</td><td>重力轰拳 + 失衡爆破 + 精准校准 / 致命打击</td><td>韧段破防 + 超限收割</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><mark class="key">核心解锁节奏</mark>：区域 1 结束给「节拍 · 连奏」、区域 2 结束给「织网 · 蜘蛛」、区域 3 结束给「熔炉 · 过载」；「钟摆」「指挥」放支线 / 二周目。</p>
+    <h4>环境机制</h4>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>环境体</th><th>玩法互动</th></tr></thead>
+        <tbody>
+          <tr><td>可燃晶簇</td><td>燃烧引爆，连锁清场（配爆燃）</td></tr>
+          <tr><td>导电水域</td><td>感电扩散至范围敌人（配雷引建网）</td></tr>
+          <tr><td>腐蚀雾区</td><td>站内累积侵蚀，可提前引爆</td></tr>
+          <tr><td>重力异常区</td><td>失衡 / 浮空时长延长，控制主场</td></tr>
+          <tr><td>灰域裂隙</td><td>招式穿裂隙改弹道（配弹道跃迁 / 公转）</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>成长投放与流派形成</h4>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>阶段</th><th>玩家获得</th><th>BD 形成</th></tr></thead>
+        <tbody>
+          <tr><td>区域 1</td><td>近战 + 燃烧 + 首个中继</td><td>第一次体会「一棵树」编程</td></tr>
+          <tr><td>区域 2</td><td>远程 + 侵蚀 + 苛刻度</td><td>第一次体会「跨树状态制造 / 消费」</td></tr>
+          <tr><td>区域 3</td><td>召唤 + 感电 + 引信</td><td>第一次体会「铺场 ≠ 状态」</td></tr>
+          <tr><td>区域 4</td><td>失衡 + 暴击 + 韧段</td><td>整合三层资源，Boss 前「结业」</td></tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
   <!-- ============ 05 数值初稿 ============ -->
@@ -543,14 +731,17 @@
           <tr><td>整装载荷</td><td>300</td><td>约束全部构装插件，所有序列槽位共用（原费用上限 15 ×10）[已定]</td></tr>
           <tr><td>构装插件载荷档</td><td>I:10–30 / II:30–60 / III:60–100</td><td>随强度与稀有度递增；<strong>传说无等级</strong>，独立标识、不受档位约束（见 4.3.1）</td></tr>
           <tr><td>中继插件接口数</td><td>2–3</td><td>一个中继插件一拖 N 个子技能，输出 ≤ 接口数</td></tr>
-          <tr><td>热量值上限</td><td>120（示例）</td><td>根行为插件命中积攒；超限释放耗热量按行为插件定（示例 80）。<strong>「热量超限转伤害加成」非通用</strong>：仅具备「热量转伤害」资源规则的特定核心启用，其余机体核心无此加成（上限 120 已定）</td></tr>
+          <tr><td>热量值上限</td><td>120</td><td>根行为插件命中积攒（攻击序列 2/2/2、重装统一 22）。<strong>「热量超限转伤害加成」非通用</strong>：仅具备「热量转伤害」资源规则的特定核心（熔炉）启用，其余机体核心无此加成</td></tr>
+          <tr><td>超限释放耗热</td><td>65 / 70 / 75</td><td>炽燃斩 65；重力轰拳 70；涡刃绞击 / 等离子弹射 / 蚀染铳击 / 浮游机炮 75（见 4.7 与三表）</td></tr>
           <tr><td>中继效率</td><td>0.1 – 2.4</td><td>随触发条件苛刻度递增；同时作用于伤害与异常附着效率（见 4.4）</td></tr>
           <tr><td>中继触发间隔（内置CD）</td><td>统一 0.5s</td><td>逐中继可调，防多段命中刷触发；v0.9 定稿统一为 0.5s（见 4.4）</td></tr>
           <tr><td>多分支摊薄</td><td>不摊薄</td><td>多分支不降低各分支效率；中继的分支代价由稀有度体现——加分支则效率增量收缩（载荷固定不随稀有度，见 4.3.1 / 4.4）</td></tr>
           <tr><td>连段窗口</td><td>0.35 秒</td><td>参考哈迪斯 / 传说法师标准动作游戏连段：仅攻击序列根插槽行为插件的多段连击（如挥砍插件连按三段）；窗口为两次按键间隔，超时连段归零回第一段。与技能树无关（见 07 Q8）</td></tr>
           <tr><td>状态持续时间</td><td>每状态单独定值</td><td>燃烧 3s / 感电 5s / 侵蚀 6s / 电蚀 4s / 失衡 2s / 标记 8s（见 4.9 状态表）</td></tr>
           <tr><td>状态值累计条</td><td>杂兵 1 / 精英 ≈1.5–2 / Boss ≈3</td><td>命中累计状态值、条随时间衰减、满条施加并归零；根行为插件与中继触发的子技能命中均可累计（见 4.9）</td></tr>
-          <tr><td>机甲核心数</td><td>MVP 3（可拓展 3–5）</td><td>规则改写型；全局唯一；见 4.8</td></tr>
+          <tr><td>韧段长度</td><td>杂兵 1 / 精英 3 / Boss 8</td><td>削韧量：攻击序列 1 / 重装序列 3 / 超限释放 6；破防窗口约 2.0s、易伤 ×1.3；递进抗性 ×1.3 最多叠 5（见 4.10）[初稿]</td></tr>
+          <tr><td>机甲核心数</td><td>MVP 5（可拓展）</td><td>规则改写型「锚」；全局唯一；见 4.8</td></tr>
+          <tr><td>流派结构</td><td>锚 × 招牌组合涌现</td><td>不预设死流派清单；5 个引导招牌组合 + A/B 两层化学反应（见 4.11）</td></tr>
           <tr><td>终结演出</td><td>按超限释放嵌入的行为插件定</td><td>每行为插件 1 套；强化/终结演出形态取决于所嵌入插件，与核心无关</td></tr>
         </tbody>
       </table>
@@ -571,7 +762,8 @@
           <tr><td>超限释放演出</td><td class="mono" style="color:#ffb454">中</td><td>大招特效 + 卡点音效，音效库先行</td></tr>
           <tr><td>构装插件动画</td><td class="mono" style="color:#ffb454">低-中</td><td>利好：每棵树仅 1 套根动画，被触发技能走特效/弹道预制件</td></tr>
           <tr><td>敌人 AI 与输出窗口</td><td class="mono" style="color:#ffb454">中</td><td>状态流水线需要敌人存活足够时长</td></tr>
-          <tr><td>机甲核心修正器</td><td class="mono" style="color:#38d3ff">低-中</td><td>规则覆盖表 + 挂在装配校验/触发结算/搓招钩子；MVP 3 核心</td></tr>
+          <tr><td>机甲核心修正器</td><td class="mono" style="color:#38d3ff">低-中</td><td>规则覆盖表 + 挂在装配校验/触发结算/搓招钩子；MVP 5 核心</td></tr>
+          <tr><td>Boss 动作与关卡</td><td class="mono" style="color:#ffb454">中</td><td>读前摇 / 抓后摇的动作 Boss，5 招式 × 3 阶段；4 区域教学节奏 + 5 类环境机制；不依赖 BD 做通关门槛</td></tr>
           <tr><td>三键搓招系统</td><td class="mono" style="color:#38d3ff">低</td><td>攻击序列 + 重装序列两个可编程攻击输入 + 超限释放，纯输入映射，无复杂状态机</td></tr>
         </tbody>
       </table>
@@ -597,9 +789,10 @@
           <tr><td class="mono">Q6</td><td>状态规则</td><td>✅ 已定</td><td>6 类状态（燃烧/感电/侵蚀/电蚀/失衡/标记）+ 2 招牌反应（爆燃/电蚀，方案 B 自动触发）；感电为共享催化剂；电蚀为侵蚀升级态；不设阶段狂怒；失衡为破韧条件下少数插件的效果（见 4.9 / 4.10）</td></tr>
           <tr><td class="mono">Q7</td><td>载荷粒度</td><td>✅ 已定</td><td>全部序列槽位共用同一整装载荷（整装总预算），不设独立上限</td></tr>
           <tr><td class="mono">Q8</td><td>连段衔接窗（指针/窗口）</td><td>✅ 已定</td><td>参考哈迪斯 / 传说法师标准动作游戏连段：仅适用于<strong>攻击序列根插槽行为插件</strong>的<strong>多段连击</strong>（如挥砍插件连按三段）；<strong>指针</strong>记录当前连段位（第几段），<strong>窗口</strong>为两次按键允许的时间间隔（0.35 秒），超时连段归零回到第一段。与技能树无关（见 05 连段窗口）。</td></tr>
-          <tr><td class="mono">Q10</td><td>机甲核心</td><td>✅ 已定</td><td>规则改写型、全局唯一、MVP 3 核心（对应 3 人团队每人一条核心线）；见 4.8</td></tr>
+          <tr><td class="mono">Q10</td><td>机甲核心</td><td>✅ 已定</td><td>规则改写型「锚」、全局唯一、MVP 5 核心（熔炉 / 节拍 / 织网 / 钟摆 / 指挥）；流派由「锚 × 招牌组合」涌现，不预设死清单；见 4.8 / 4.11</td></tr>
           <tr><td class="mono">Q11</td><td>超限释放是否为独立键</td><td>✅ 已定</td><td>第四独立攻击键，消耗热量值，与三攻击序列并列</td></tr>
           <tr><td class="mono">Q12</td><td>三键搓招手感差异</td><td>✅ 已定</td><td>三键同级、无轻重之分；用积热量值效率作引导（普攻积热快、特殊攻击积热中、超限释放耗热）；见 4.5 / 4.6</td></tr>
+          <tr><td class="mono">Q13</td><td>流派与 Boss 定位</td><td>✅ 已定（2026-10-27）</td><td>流派＝锚 × 招牌组合涌现 + 跨流派化学反应层；Boss＝动作为主、BD 为加分，韧段破防降级为额外输出窗口；见 4.11 / 4.12</td></tr>
         </tbody>
       </table>
     </div>
@@ -700,7 +893,7 @@
       <li id="cite-6"><span class="src-title">blackmythwukongtalk, 黑神话专注系统（轻击积攒、重击消耗）</span><a class="src-url" href="https://www.blackmythwukongtalk.com/articles/why-focus-points-are-make-or-break-in-black-myth-wukong-in-2026.html" target="_blank" rel="noopener">https://www.blackmythwukongtalk.com/articles/why-focus-points-are-make-or-break-in-black-myth-wukong-in-2026.html</a></li>
     </ol>
   </div>
-  <p class="foot-note">本文档为内部策划需求草案 v0.8，[待定] 数值需原型验证后更新；待澄清项见 07 章节；世界观与剧情见 08 章节（锚定《月落之时》宇宙）。发布日期 2026-09-04。</p>
+  <p class="foot-note">本文档为内部策划需求草案 v0.8，[待定] / [初稿] 数值需原型验证后更新；待澄清项见 07 章节；世界观与剧情见 08 章节（锚定《月落之时》宇宙）。发布日期 2026-09-04 · 数据同步 2026-10-27（对齐三张插件表 + 战斗细化 v1.1）。</p>
 </footer>
 
 <script src="./_shared/js/echarts.min.js"></script>
@@ -713,38 +906,35 @@
 
   var TREES = [
     {
-      key: 'A', lane: '攻', name: '攻击序列 · 火拳', cost: 4,
+      key: 'A', lane: '攻', name: '攻击序列 · 炽燃斩', cost: 25,
       nodes: [
-        { t: 'root', tag: '行为（普攻连段）', name: '火拳', eff: '命中施加 燃烧 · 无 CD · 基础伤害' },
-        { t: 'buff', tag: '赋能', name: '范围扩大', eff: '作用于直接子节点：范围 +30%' },
-        { t: 'link', tag: '中继 · 一分三', name: '击中时触发', eff: '效率 0.4，多分支不摊薄' },
-        { t: 'sub', tag: '子攻击 ①', name: '余烬弹', eff: '自动发射 ×0.4' },
-        { t: 'sub', tag: '子攻击 ②', name: '火墙', eff: '自动展开 ×0.4' },
-        { t: 'sub', tag: '子攻击 ③', name: '火雨', eff: '自动落下 ×0.4' }
+        { t: 'root', tag: '行为（普攻连段·无CD）', name: '炽燃斩', eff: '三段命中累计 燃烧值 · 热能 2+3+4' },
+        { t: 'buff', tag: '赋能', name: '状态催化', eff: '作用于直接子节点：状态累计 +30%' },
+        { t: 'link', tag: '中继 · 简单', name: '连击链动（击中时）', eff: '效率 0.25' },
+        { t: 'sub', tag: '子攻击', name: '涡刃绞击', eff: '自动追击 ×0.25' }
       ]
     },
     {
-      key: 'B', lane: '重', name: '重装序列 · 电磁指', cost: 5,
+      key: 'B', lane: '重', name: '重装序列 · 等离子弹射', cost: 25,
       nodes: [
-        { t: 'root', tag: '行为（特殊攻击·CD 4s）', name: '电磁指', eff: '命中施加 感电 · CD 4s · 强化伤害' },
+        { t: 'root', tag: '行为（特殊攻击·CD 5s）', name: '等离子弹射', eff: '命中累计 感电值 · 热能 22' },
         { t: 'buff', tag: '赋能', name: '双重释放', eff: '作用于直接子节点：释放 ×2' },
-        { t: 'sub', tag: '子攻击 · 破防插件', name: '挑飞斩', eff: '破韧条件下命中施加 失衡（跨树制造）' },
-        { t: 'link', tag: '中继 · 极苛刻', name: '命中失衡敌人时触发', eff: '效率 1.6' },
-        { t: 'sub', tag: '子攻击', name: '雷霆轰炸', eff: '自动轰炸' }
+        { t: 'link', tag: '中继 · 苛刻（跨树）', name: '灼芯回路（命中燃烧）', eff: '效率 0.84' },
+        { t: 'sub', tag: '子攻击', name: '炽燃斩', eff: '自动追击 ×0.84' }
       ]
     },
     {
-      key: 'H', lane: '终', name: '超限释放 · 聚能炮', cost: 0,
+      key: 'H', lane: '终', name: '超限释放 · 重力轰拳', cost: 70,
       nodes: [
-        { t: 'root', tag: '行为插件 · 耗热量值 4', name: '聚能炮', eff: '强化演出 + 卡点音效' },
-        { t: 'buff', tag: '赋能', name: '弹道贯穿', eff: '作用于直接子节点：贯穿' },
-        { t: 'link', tag: '中继 · 简单', name: '击中时触发', eff: '效率 0.5' },
-        { t: 'sub', tag: '子插件', name: '扩散弹', eff: '自动散射' }
+        { t: 'root', tag: '行为插件 · 耗热 70', name: '重力轰拳', eff: '三次砸地 · 高累积失衡 · 强化演出' },
+        { t: 'buff', tag: '赋能', name: '蓄势派生', eff: '作用于直接子节点：蓄力增伤' },
+        { t: 'link', tag: '中继 · 极苛刻', name: '失衡爆破（命中失衡）', eff: '效率 1.33' },
+        { t: 'sub', tag: '子插件', name: '蚀染铳击', eff: '自动追击 ×1.33' }
       ]
     }
   ];
 
-  var energy = 0, energyMax = 10;
+  var energy = 70, energyMax = 120;
   var ptr = 0;
   var state = { burn: false, shock: false, erode: 0, erodeUp: 0, stun: false, mark: false, overload: false };
   var timers = { burn: null, shock: null, stun: null, mark: null, overload: null };
@@ -766,7 +956,7 @@
       box.className = 'tree';
       var slotLabel = tree.lane === '攻' ? '攻击序列' : tree.lane === '重' ? '重装序列' : '超限释放';
       box.innerHTML = '<div class="thead"><span class="tname">' + tree.name + '</span>' +
-        '<span class="tptr">' + slotLabel + ' · ' + tree.cost + '费</span>' +
+        '<span class="tptr">' + slotLabel + ' · ' + (tree.lane === '终' ? '耗热 ' + tree.cost : tree.cost + ' 载荷') + '</span>' +
         '</div>';
       tree.nodes.forEach(function (n) {
         var d = document.createElement('div');
@@ -843,11 +1033,20 @@
 
   function releaseTree(idx) {
     var tree = TREES[idx];
-    if (tree.lane === '重') {
-      if (energy < 4) { addLog('热量值不足：超限释放需热量值 4（当前 ' + energy + '）', 'warn'); return; }
-      energy -= 4; renderEnergy();
-      addLog('超限释放：聚能炮（强化演出！卡点音效）——耗热量值 4，剩余 ' + energy, 'hot');
-      addLog('  中继「击中时触发」：扩散弹自动散射 ×0.5');
+    if (tree.lane === '终') {
+      if (energy < tree.cost) { addLog('热量值不足：超限释放需 ' + tree.cost + '（当前 ' + energy + '）', 'warn'); return; }
+      energy -= tree.cost; renderEnergy();
+      addLog('超限释放：' + tree.nodes[0].name + '（强化演出！卡点音效）——耗热 ' + tree.cost + '，剩余 ' + energy, 'hot');
+      tree.nodes.forEach(function (n) {
+        if (n.t === 'buff') addLog('  [赋能] ' + n.name + '：作用于直接子节点');
+        if (n.t === 'link') addLog('  [中继] ' + n.name + ' → 效率 ' + n.eff.match(/[\d.]+/)[0]);
+        if (n.t === 'sub') {
+          var eff = parseFloat(n.eff.match(/[\d.]+/)[0]) || 1;
+          addLog('  自动触发（零前后摇）：' + n.name + ' ×' + eff, eff >= 1 ? 'big' : '');
+        }
+      });
+      applyState('stun');
+      renderEnergy(); renderTrees();
       return;
     }
     if (tree.key === 'A') {
@@ -856,9 +1055,8 @@
     }
     if (tree.key === 'B') {
       addLog('重装序列（特殊攻击·CD）→ ' + tree.name + '（动画：' + tree.nodes[0].name + '）');
+      if (state.burn) addLog('★ 跨树中继「灼芯回路」：命中燃烧敌人 → 炽燃斩自动追击 ×0.84', 'big');
       applyState('shock');
-      // 破防插件：挑飞斩在破韧条件下制造失衡
-      applyState('stun');
     }
     tree.nodes.forEach(function (n) {
       if (n.t === 'buff') addLog('  [赋能] ' + n.name + '：作用于直接子节点');
@@ -868,11 +1066,7 @@
         addLog('  自动触发（零前后摇）：' + n.name + ' ×' + eff, eff >= 1 ? 'big' : '');
       }
     });
-    if (tree.key === 'B' && state.stun) {
-      addLog('★ 重装树苛刻中继「命中失衡敌人」触发雷霆轰炸 ×1.6', 'big');
-      state.stun = false; clearTimeout(timers.stun); renderStatus();
-    }
-    energy = Math.min(energyMax, energy + 1);
+    energy = Math.min(energyMax, energy + (tree.key === 'B' ? 22 : 9));
     renderEnergy();
     renderTrees();
   }
@@ -881,15 +1075,15 @@
     addLog('—— 双序列跨树协作演示：攻击序列 → 重装序列 ——', 'hot');
     releaseTree(0);
     setTimeout(function () { releaseTree(1); }, 700);
-    setTimeout(function () { addLog('（跨树意义：重装树苛刻中继依赖攻击树制造的燃烧+感电=爆燃，及破防插件制造的失衡）', 'warn'); }, 1300);
+    setTimeout(function () { addLog('（跨树意义：重装树的苛刻中继「灼芯回路」消费攻击树制造的燃烧；随后感电与燃烧共存触发爆燃）', 'warn'); }, 1300);
   }
 
   document.getElementById('btnSeqA').onclick = function () { releaseTree(0); };
   document.getElementById('btnSeqB').onclick = function () { releaseTree(1); };
-  document.getElementById('btnHeavy').onclick = function () { releaseTree(3); };
+  document.getElementById('btnHeavy').onclick = function () { releaseTree(2); };
   document.getElementById('btnAuto').onclick = autoDemo;
   document.getElementById('btnReset').onclick = function () {
-    energy = 0; ptr = 0;
+    energy = 70; ptr = 0;
     state = { burn: false, shock: false, erode: 0, erodeUp: 0, stun: false, mark: false, overload: false };
     clearTimeout(timers.stun); clearTimeout(timers.burn); clearTimeout(timers.shock); clearTimeout(timers.mark); clearTimeout(timers.overload);
     renderEnergy(); renderStatus(); renderTrees();
