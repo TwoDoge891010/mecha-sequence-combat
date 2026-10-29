@@ -34,8 +34,8 @@ git log --oneline -3
 | --- | --- |
 | 远程地址 | `https://github.com/TwoDoge891010/mecha-sequence-combat.git` |
 | 分支 | `main`（唯一长期分支，无 develop / feature 分支） |
-| 交接时 HEAD | `1add784` — v0.8: 近战池补全 6→15 插件(45 行); 新增核心·流派与熔炉核心设计稿 |
-| 最近提交链 | `1add784` → `b15d5c2`（修复留存脚本硬编码路径）→ `b6fbdb9`（赋能 23 条）→ `1e3f17f`（中继 8 插件）→ `55decd0`（术语「卡」→「插件」） |
+| 交接时 HEAD | `753f0dd` — 交接：补交接说明、15 插件池复核与战斗细化章节 |
+| 最近提交链 | `753f0dd`（交接文档 + 15 插件池复核）→ `1add784`（近战池补全 6→15 插件）→ `b15d5c2`（修复留存脚本硬编码路径）→ `b6fbdb9`（赋能 23 条）→ `1e3f17f`（中继 8 插件）→ `55decd0`（术语「卡」→「插件」） |
 | LFS | 未使用；xlsx 与字体直接入库 |
 | 提交人 | TwoDoge891010（换账号后新账号需被加为协作者，或在本地改 remote 为新仓库） |
 
@@ -175,27 +175,21 @@ git log --oneline -3
 
 ---
 
-## 7. 交接时的工作区状态（最重要，别丢）
+## 7. 交接时的提交状态
 
-交接时工作区有一批**未提交改动**，均未 push：
+交接前的工作区改动已全部入库并推送，工作区干净。
 
 | 状态 | 文件 | 内容 |
 | --- | --- | --- |
-| `M` | `docs/game-design-requirements.html` | 战斗细化 4.11–4.13（流派/Boss/关卡）+ 按 15 插件池复核的 4.3.1（6 系列 54 变体 → 15 系列 135 变体） |
-| `M` | `docs/PROJECT-STATUS.md` | 台账新增 2026-10-28 一行、HTML 状态更新、待办补「标记来源」 |
-| `M` | `README.md` | 状态段与成品表按 15 插件口径修正，加入交接入口 |
-| `M` | `AGENTS.md` | 补「接手先读」顺序、真值优先级、术语约定 |
-| `??` | `docs/combat-bd-boss-level-v1.0.md` | v1.1 细化稿整份（未跟踪） |
-| `??` | `docs/handover.md` | 本文（未跟踪） |
+| 已提交 | `docs/game-design-requirements.html` | 战斗细化 4.11–4.13（流派/Boss/关卡）+ 按 15 插件池复核的 4.3.1（6 系列 54 变体 → 15 系列 135 变体） |
+| 已提交 | `docs/PROJECT-STATUS.md` | 台账新增 2026-10-28 一行、HTML 状态更新、待办补「标记来源」、交接文档登记 |
+| 已提交 | `README.md` | 状态段与成品表按 15 插件口径修正，加入交接入口 |
+| 已提交 | `AGENTS.md` | 补「接手先读」顺序、真值优先级、术语约定 |
+| 已提交 | `docs/combat-bd-boss-level-v1.0.md` | v1.1 细化稿整份（新建） |
+| 已提交 | `docs/handover.md` | 本文（新建） |
 
-> 换账号前请**先处理这批改动**：确认后 `git add` → `git commit` → `git push`。否则新账号 clone 下来看不到它们。
-> 处理前建议先 `git diff` 过一遍（HTML 改动约 +260 / -68 行，其中一部分是上一轮细化章节）。
-
-```powershell
-git -C D:\TraeWorkSpace\Projects\mecha-sequence-combat add docs/game-design-requirements.html docs/PROJECT-STATUS.md docs/combat-bd-boss-level-v1.0.md docs/handover.md README.md AGENTS.md
-git -C D:\TraeWorkSpace\Projects\mecha-sequence-combat commit -m "交接：补 15 插件池、细化章节与交接说明"
-git -C D:\TraeWorkSpace\Projects\mecha-sequence-combat push origin main
-```
+> 包含在提交 `753f0dd`（2026-10-29），已推送到 `origin/main`。
+> 接手后先跑 `git status`，应无任何输出；若有，说明本地又被改过，先确认再动。
 
 ---
 
@@ -216,8 +210,8 @@ git -C D:\TraeWorkSpace\Projects\mecha-sequence-combat push origin main
 
 ## 9. 接手第一步 checklist
 
-- [ ] `git clone` 并确认 HEAD 在 `1add784` 或更新；确认新账号有 push 权限
-- [ ] 处理 §7 的 3 项未提交改动（提交 + 推送），再开始新工作
+- [ ] `git clone` 并确认 HEAD 在 `753f0dd` 或更新；确认新账号有 push 权限
+- [ ] `git status` 确认工作区干净（无输出），再开始新工作
 - [ ] 读 `docs/PROJECT-STATUS.md` 第一 ~ 六章（约 10 分钟）
 - [ ] 浏览器打开 `docs/game-design-requirements.html`，重点看 4.3 / 4.8 / 4.9 / 4.11 / 4.12 / 4.13
 - [ ] 用 Excel 打开三张 xlsx，确认行为表 45 行、赋能 23 条、中继 24 行
@@ -231,7 +225,7 @@ git -C D:\TraeWorkSpace\Projects\mecha-sequence-combat push origin main
 
 | 日期 | 动作 |
 | --- | --- |
-| 2026-10-29 | 新建 `docs/handover.md`；README 状态段与成品表按 15 插件口径修正；AGENTS 补「接手先读」顺序与真值优先级；PROJECT-STATUS 文件职责表登记交接文档 |
+| 2026-10-29 | 新建 `docs/handover.md`；README 状态段与成品表按 15 插件口径修正；AGENTS 补「接手先读」顺序与真值优先级；PROJECT-STATUS 文件职责表登记交接文档；本批改动提交为 `753f0dd` 并推送 `origin/main` |
 | 2026-10-28 | HTML 4.3.1 行为插件池按远端 15 插件真值复核（6→15 系列 / 54→135 变体）；PROJECT-STATUS 登记 |
 | 2026-10-27 | 远端提交 `1add784`：近战池 6→15 插件（45 行）+ 核心与流派 / 熔炉核心两份设计稿 |
 
