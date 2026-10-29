@@ -5,10 +5,10 @@
 
 ## 项目约定
 
-- **接手/交接先读**：`docs/handover.md`（现状、待办、仓库地址、已知坑）→ `docs/PROJECT-STATUS.md`（单一事实源索引）→ `docs/game-design-requirements.html`（设计正文）。
+- **动手前先读**：`docs/PROJECT-STATUS.md`（单一事实源索引、待办、已知坑）→ `docs/game-design-requirements.html`（设计正文）。
 - 真值优先级：执行层语义 原型 > 三张插件表 xlsx > HTML 正文/决策记录；非执行层语义以 HTML 为准。
 - 语言/风格:简体中文；术语统一称「插件」，不写「卡」。
-- 目录说明(额外声明的内容目录):`docs\`(设计正文 + 资源 + 状态索引 + 交接说明)、`src\plugin-tables\`(三张数值真值表)。
+- 目录说明(额外声明的内容目录):`docs\`(设计正文 + 资源 + 状态索引)、`src\plugin-tables\`(三张数值真值表)。
 
 ## 常用命令
 
